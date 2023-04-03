@@ -2,6 +2,32 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Owner {
+  id: Int!
+  name: String!
+  pets: [Pet]!
+}
+
+type Pet {
+  id: Int!
+  name: String
+
+  """Age of pet"""
+  age: Int
+  owner: Owner
+}
+
 type Query {
   hello: String!
+  pets: [Pet!]!
+}
+
+type Mutation {
+  createPet(createPetInput: CreatePetInput!): Pet!
+  deletePet(ids: [Int!]!): String!
+}
+
+input CreatePetInput {
+  name: String!
+  age: Float
 }
