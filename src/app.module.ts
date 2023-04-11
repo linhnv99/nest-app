@@ -8,6 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PetModule } from './resolvers/pets/pet.module';
 import { Pet } from './models/pets.model';
 import { Owner } from './models/owners.model';
+import { PubSubModule } from './subscriptions/pubsub.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { Owner } from './models/owners.model';
       //   return graphQLFormattedError;
       // },
       introspection: true,
-      playground: true
+      playground: true,
+      installSubscriptionHandlers: true,
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
@@ -33,7 +35,8 @@ import { Owner } from './models/owners.model';
       entities: [Pet, Owner],
       synchronize: true,
     }),
-    PetModule
+    PetModule,
+    PubSubModule
   ],
   controllers: [],
   providers: [OwnersResolver],
