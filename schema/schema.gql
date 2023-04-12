@@ -17,6 +17,13 @@ type Pet {
   owner: Owner
 }
 
+type User {
+  id: Int!
+  name: String
+  username: String!
+  password: String!
+}
+
 type Query {
   hello: String!
   pets: [Pet!]!
@@ -26,11 +33,18 @@ type Query {
 type Mutation {
   createPet(createPetInput: CreatePetInput!): Pet!
   deletePet(ids: [Int!]!): String!
+  createUser(createUserInput: CreateUserInput!): User!
 }
 
 input CreatePetInput {
   name: String!
   age: Float
+}
+
+input CreateUserInput {
+  name: String!
+  username: String!
+  password: String!
 }
 
 type Subscription {

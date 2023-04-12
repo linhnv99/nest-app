@@ -9,6 +9,12 @@ import { PetModule } from './resolvers/pets/pet.module';
 import { Pet } from './models/pets.model';
 import { Owner } from './models/owners.model';
 import { PubSubModule } from './subscriptions/pubsub.module';
+import { PubSub } from 'graphql-subscriptions';
+import { GlobalModule } from './shared/global.module';
+import { RedisModule } from '@liaoliaots/nestjs-redis';
+import { User } from './models/users.model';
+import { UserModule } from './resolvers/users/users.module';
+
 
 @Module({
   imports: [
@@ -32,13 +38,25 @@ import { PubSubModule } from './subscriptions/pubsub.module';
       username: 'username',
       password: 'password',
       database: 'test',
-      entities: [Pet, Owner],
+      entities: [Pet, Owner, User],
       synchronize: true,
     }),
+    RedisModule.forRoot({
+      config: {
+        host: 'localhost',
+        port: 6380,
+        password: 'linhnv123'
+      }
+    }),
+    GlobalModule,
     PetModule,
-    PubSubModule
+    PubSubModule,
+    UserModule
   ],
   controllers: [],
-  providers: [OwnersResolver],
+  providers: [
+    OwnersResolver
+  ],
+  exports: []
 })
-export class AppModule {}
+export class AppModule { }
